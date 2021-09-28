@@ -1,0 +1,74 @@
+{% extends 'base.html' %} 
+{% block title %} Travel Dashboard{% endblock title %}
+{% block info %}
+
+<div class="row">
+        <h1 class="col-md-4">Hello {{active_user.name}}</h1>
+        <a href="/logout" class="col-md-2 offset-md-6">Logout</a>
+</div>
+<h4>Your Trips Schedules</h4>
+<br>
+<div class="row">
+    <div>
+        <table class="table table-striped " id="data">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Start_Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for trip in trips%}
+                    <tr>
+                        <td scope="row">{{ trip.id }}</td>      
+                        <td><a href="{% url 'destination_id' trip.id %}">{{trip.destination}}</a></td>
+                        <td>{{trip.start_date}}</td>
+                        <td>{{trip.end_date}}</td>
+                        <td>{{trip.description}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+</div>
+    <h4>Other Users Travel Plan</h4>
+    <br>
+    <div>
+        <table class="table table-striped " id="data">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Start_Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Description</th>
+                <th scope="col">Do You Want Join</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for trip in other_trips%}
+                    <tr>
+                        <td scope="row">{{ trip.id }}</td>
+                        <td>{{trip.creator.name}}</td>      
+                        <td>{{trip.destination}}</td>
+                        <td>{{trip.start_date}}</td>
+                        <td>{{trip.end_date}}</td>
+                        <td>{{trip.description}}</td>
+                        <td>
+                            <a href="{% url 'join_trip' trip.id %}">Join</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<div class="row">
+    <a href="{% url 'destination_add'%}">Add Travel Plan</a>
+</div>
+
+{% endblock %}

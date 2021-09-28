@@ -1,0 +1,38 @@
+{% extends 'base.html' %} 
+{% block title %} Destination{% endblock title %}
+{% block info %}
+    <div class="container">
+        <!--begin::Header-->
+        <div class="my-3">
+            <!--begin::Options-->
+            <div class="text-right">
+                <a class="mr-3" href="{% url 'home' %}">Home</a><a href="{% url 'logout' %}">Logout</a>
+            </div>
+            <!--end::Options-->
+        </div>
+        <!--end::Header-->
+        <!--begin::Main-->
+        <div>
+            <div class="row">
+                <div class="col-xl-7 col-lg-8 col-md-9 col-11">
+                    <h3>{{trip.destination}}</h3>
+                    <p>PLaned By: {{trip.creator.name}}</p>
+                    <p>Description: {{trip.description}}</p>
+                    <p>Travel date From: {{trip.start_date}}</p>
+                    <p>Travel date To: {{trip.end_date}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <h3>Other users's joining the trip</h3>
+            </div>
+            <div>
+                <ul>
+                {% for user in trip.joined_user.all %}
+                    <li>{{user.name}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!--end::Main-->
+    </div>
+{% endblock %}
