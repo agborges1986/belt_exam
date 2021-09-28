@@ -28,7 +28,9 @@
             <div>
                 <ul>
                 {% for user in trip.joined_user.all %}
-                    <li>{{user.name}}</li>
+                    {% if user.name != trip.creator.name%}
+                        <li>{{user.name}}</li>
+                    {% endif %}
                 {% endfor %}
                 </ul>
             </div>

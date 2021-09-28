@@ -47,7 +47,7 @@ def login(request):
 
 def home(request):
     reg_user = User.objects.get(id=request.session['id'])
-    trips = Trip.objects.filter(creator=request.session['id']) | Trip.objects.filter(joined_user=request.session['id'])
+    trips = Trip.objects.filter(joined_user=User.objects.get(id=request.session['id']))
     other_trips = Trip.objects.exclude(creator=request.session['id']).exclude(joined_user=request.session['id'])
     context={
         'trips':trips,
@@ -82,7 +82,9 @@ def succes_add(request):
                 messages.error(request, msg)
             return redirect('travels/add')
         else:
-            Trip.objects.create(destination=destination, description=description, start_date=start_date, end_date=end_date,creator=user)
+            #Pongo al usuario creador como unido al viaje
+            trip=Trip.objects.create(destination=destination, description=description, start_date=start_date, end_date=end_date,creator=user)
+            trip.joined_user.add(User.objects.get(id=request.session['id']))
             return redirect("/travels")
 
 
