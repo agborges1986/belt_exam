@@ -55,7 +55,7 @@
                     <tr>
                         <td scope="row">{{ trip.id }}</td>
                         <td>{{trip.creator.name}}</td>      
-                        <td>{{trip.destination}}</td>
+                        <td><a href="{% url 'destination_id' trip.id %}">{{trip.destination}}</td>
                         <td>{{trip.start_date}}</td>
                         <td>{{trip.end_date}}</td>
                         <td>{{trip.description}}</td>
@@ -68,7 +68,7 @@
         </table>
     </div>
 <div class="row">
-    <a href="{% url 'destination_add'%}">Add Travel Plan</a>
+    <a href="{% url 'destination_add'%}" class="btn btn-success col-md-2 offset-8">Add Travel Plan</a>
 </div>
 
 {% endblock %}

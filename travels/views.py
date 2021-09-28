@@ -48,7 +48,7 @@ def login(request):
 def home(request):
     reg_user = User.objects.get(id=request.session['id'])
     trips = Trip.objects.filter(joined_user=User.objects.get(id=request.session['id']))
-    other_trips = Trip.objects.exclude(creator=request.session['id']).exclude(joined_user=request.session['id'])
+    other_trips = Trip.objects.exclude(joined_user=User.objects.get(id=request.session['id']))
     context={
         'trips':trips,
         'active_user': reg_user,
@@ -63,8 +63,8 @@ def destination_id(request,id):
     }
     return render(request, 'destination.html',context)
 
-def destination_add(request):
 
+def destination_add(request):
     return render(request, 'add_trip.html')
 
 
